@@ -6,25 +6,22 @@ class Solution(object):
         :rtype: List[int]
         """
         if len(nums) >= 2 and len(nums) <= 10 ** 4 and target >= -10 ** 9 and target <= 10 ** 9:
-            l_index = 0
+            difs = {}
 
-            while True:
-                try:
-                    left = nums[l_index]
-                    if not (left >= -10 ** 9 and left <= 10 ** 9):
-                        return False
+            for i in range(len(nums)):
 
-
-                except IndexError:
+                if not (nums[i] >= -10 ** 9 and nums[i] <= 10 ** 9):
                     return []
                 
-                for i in range(len(nums) - l_index - 1):
-                    right = i + 1 + l_index
-                    if nums[right] >= -10 ** 9 and nums[right] <= 10 ** 9:
-                        sum = left + nums[right]
-                        if sum == target:
-                            return  [l_index, right]
+                dif = target - nums[i]
 
-                l_index += 1 
+                if nums[i] in difs:
+                    return [difs[nums[i]], i]
+                
+                difs[dif] = i
+                    
+
+            return []
+
         else:
             return []
