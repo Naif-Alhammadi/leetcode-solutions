@@ -33,7 +33,10 @@ class Solution(object):
 
             sum += ROMAN[s[i]] - value - value
 
+
         if sum < 1 or sum > 3999:
             return False
         
         return sum
+        # Time: O(n)
+        # Space: O(1)
