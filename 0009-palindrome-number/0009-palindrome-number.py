@@ -4,21 +4,24 @@ class Solution(object):
         :type x: int
         :rtype: bool
         """
-        if x >= -2 ** 31 and x <= 2 ** 31:
-            length = len(str(x))
-            REDUCED_SIZE = 1
+        if x < 0:
+            return False
+        div = 1
 
-            while True:
-                right = x % 10
-                left = x // 10 ** (length - REDUCED_SIZE)
-                if left == right:
-                    x //= 10
-                    length -= 1
-                    x %= 10 ** (length - REDUCED_SIZE)
-                    length -= 1
-                    if length <= 0:
-                        return True
-                else:
-                    return False
-                if length == 0:
-                    return False        
+        while x  >= div:
+            div *= 10
+
+        div /= 10
+        while div // 10 != 0:
+            right = x % 10
+            left = x // div
+            if left != right:
+                return False
+            
+            x //= 10
+            div /= 10
+            x %= div
+            div /= 10
+            
+        return True
+
